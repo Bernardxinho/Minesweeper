@@ -1,0 +1,23 @@
+.cell {
+    width: 40px; 
+    height: 40px;
+    background-color: #ccc;
+    border: 1px solid #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  
+  .cell.open {
+    background-color: #fff;
+  }
+  
+  .cell:hover {
+    background-color: #ddd;
+  }
+  
+  .board{
+    display: flex;
+  }
