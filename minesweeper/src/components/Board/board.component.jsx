@@ -16,6 +16,7 @@ const Board = ({ rows, cols, mines }) => {
           isMine: false,
           isOpen: false,
           isFlagged: false,
+          isMotherOfBernardoBoa: true,
           adjacentMines: 0,
         });
       }
