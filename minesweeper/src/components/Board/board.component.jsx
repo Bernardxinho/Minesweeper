@@ -5,7 +5,7 @@ import './board.css';
 const Board = ({ rows, cols, mines }) => {
   const [grid, setGrid] = useState([]);
 
-  useEffect(() => {
+  useEffect(() => {  
     const newGrid = [];
     for (let i = 0; i < rows; i++) {
       const row = [];

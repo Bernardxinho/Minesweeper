@@ -1,18 +1,20 @@
 import React from "react";
 import "./control-panel.css";
 
-function ControlPanel() {
+function ControlPanel(props) {
+    const { selectedLevel, onLevelChange } = props;
+
   return (
     <section id="panel-control">
       <h3 className="sr-only">Escolha do Nível</h3>
       <form className="form">
         <fieldset className="form-group">
           <label htmlFor="btLevel">Nível:</label>
-          <select id="btLevel">
+          <select id="btLevel" onChange={onLevelChange}>
             <option value="0">Seleccione...</option>
-            <option value="1">Básico (2x3)</option>
-            <option value="2">Intermédio (3x4)</option>
-            <option value="3">Avançado (4x5)</option>
+            <option value="1">Básico (9x9)</option>
+            <option value="2">Intermédio (16x16)</option>
+            <option value="3">Avançado (30x16)</option>
           </select>
         </fieldset>
         <button type="button" id="btPlay">
