@@ -1,7 +1,6 @@
 .cell {
     width: 40px; 
     height: 40px;
-    background-color: #1ebfeb;
     border: 1px solid #999;
     display: flex;
     justify-content: center;
@@ -26,7 +25,12 @@
     background-repeat: no-repeat;
   }
   
-  
+  /* cell.css */
+
+.cell.mine {
+  background-color: red; /* Color for cells with mines */
+}
+
   
   .board{
     display: flex;

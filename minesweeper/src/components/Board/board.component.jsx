@@ -5,7 +5,6 @@ import './board.css';
 const Board = ({ rows, cols, mines }) => {
   const [grid, setGrid] = useState([]);
   const [gameOver, setGameOver] = useState(false);
-  const [win, setWin] = useState(false);
 
   useEffect(() => {  
     const newGrid = [];
@@ -14,12 +13,7 @@ const Board = ({ rows, cols, mines }) => {
       for (let j = 0; j < cols; j++) {
         row.push({
           row: i,
-          col: j,
-          isMine: false,
-          isOpen: false,
-          isFlagged: false,
-          isMotherOfBernardoBoa: true,
-          adjacentMines: 0,
+          col: j
         });
       }
       newGrid.push(row);
@@ -35,25 +29,6 @@ const Board = ({ rows, cols, mines }) => {
     const updatedGrid = [...grid];
     updatedGrid[row][col].isOpen = true;
     setGrid(updatedGrid);
-
-    if (updatedGrid[row][col].isMine) {
-      setGameOver(true);
-      // Aqui você pode adicionar lógica para exibir uma mensagem de jogo perdido
-    } else {
-      // Verifica se todas as células não minadas foram reveladas
-      let nonMineCellsRevealed = 0;
-      updatedGrid.forEach(row => {
-        row.forEach(cell => {
-          if (!cell.isMine && cell.isOpen) {
-            nonMineCellsRevealed++;
-          }
-        });
-      });
-      if (nonMineCellsRevealed === rows * cols - mines) {
-        setWin(true);
-        // Aqui você pode adicionar lógica para exibir uma mensagem de jogo ganho
-      }
-    }
   };
 
 

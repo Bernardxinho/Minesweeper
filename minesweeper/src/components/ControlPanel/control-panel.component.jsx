@@ -1,8 +1,13 @@
 import React from "react";
 import "./control-panel.css";
+import Timer from "../timer/timer.component";
+import { TIMEOUTGAME_BASICO } from "../../constants";
 
 function ControlPanel(props) {
-    const { selectedLevel, onLevelChange } = props;
+  const { gameStarted, selectedLevel, onGameStart, onLevelChange } = props;
+  const handleTimer = (t) => {
+    if (t === 0) onGameStart();
+  };
 
   return (
     <section id="panel-control">
@@ -17,25 +22,30 @@ function ControlPanel(props) {
             <option value="3">Avançado (30x16)</option>
           </select>
         </fieldset>
-        <button type="button" id="btPlay">
-          Iniciar Jogo
+        <button type="button" id="btPlay" 
+          disabled={selectedLevel === "0"}
+          onClick={() => onGameStart()}>
+          {!gameStarted ? "Iniciar Jogo" : "Terminar Jogo"}
         </button>
       </form>
       <div className="form-metadata">
         <p id="message" role="alert" className="hide">
           Clique em Iniciar o Jogo!
         </p>
-        <dl className="list-item left">
+        <dl className={`list-item left${gameStarted ? " gameStarted" : ""}`}>
           <dt>Tempo de Jogo:</dt>
           <dd id="gameTime">
+            {gameStarted && (
+              <Timer timeout={TIMEOUTGAME_BASICO} onTimer={handleTimer} />
+            )}
           </dd>
         </dl>
-        <dl className="list-item right">
+        <dl className={`list-item right${gameStarted ? " gameStarted" : ""}`}>
           <dt>Pontuação TOP:</dt>
           <dd id="pointsTop">0</dd>
         </dl>
 
-        <dl className="list-item left">
+        <dl className={`list-item left${gameStarted ? " gameStarted" : ""}`}>
           <dt>Pontuação:</dt>
           <dd id="points">0</dd>
         </dl>

@@ -37,7 +37,8 @@ function App() {
     <div className="app">
       <h1 className='minesweeperTitle'>Minesweeper Cocacolastic</h1>
       <ControlPanel 
-        gameStarted={handleGameStart}
+        onGameStart={handleGameStart}
+        gameStarted={gameStarted}
         selectedLevel={selectedLevel}
         onLevelChange={handleLevelChange}
       />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './cell.css';
+import mineImage from '../../assets/images/minas.png';
 
 const Cell = ({ cell, revealCell }) => {
   const [clicked, setClicked] = useState(false);
@@ -26,21 +27,28 @@ const Cell = ({ cell, revealCell }) => {
     event.stopPropagation();
   };
 
+
   let className = 'cell';
 
-  if (cellStatus === 1) {
+  if (clicked && cell.isMine) {
+    className += ' mine';
+  } else if (cellStatus === 1) {
     className += ' flag';
   } else if (cellStatus === 2) {
     className += ' probably';
   }
 
+
+
   return (
-    <div className={className} onClick={handleClick} onContextMenu={handleContextMenu}>
-      {clicked ? (
-        <span className="mines-around">{cell.minesAround}</span>
-      ) : null}
+    <div
+      className={className}
+      onClick={handleClick}
+      onContextMenu={handleContextMenu}
+    >
+    {clicked && cell.isMine && <img src={mineImage} alt="Mina" className="mine-image" />}
     </div>
-  )
+  );
 };
 
 export default Cell;
