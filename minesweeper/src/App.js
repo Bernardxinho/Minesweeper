@@ -8,16 +8,20 @@ function App() {
   const [selectedLevel, setSelectedLevel] = useState("0");
   var col;
   var fil;
+  var min;
 
   if(selectedLevel === "1"){
     col = 9;
     fil = 9;
+    min = 10;
   }else if(selectedLevel === "2"){
     col = 16;
     fil = 16;
+    min = 40;
   }else if(selectedLevel === "3"){
     col = 16;
     fil = 30;
+    min = 99;
   }
 
   const handleGameStart = () => {
@@ -37,7 +41,7 @@ function App() {
         selectedLevel={selectedLevel}
         onLevelChange={handleLevelChange}
       />
-      <Board rows={fil} cols={col} mines={10} /> {/* Passando as propriedades para o componente Board */}
+      <Board rows={fil} cols={col} mines={min} /> {/* Passando as propriedades para o componente Board */}
     </div>
   );
 }

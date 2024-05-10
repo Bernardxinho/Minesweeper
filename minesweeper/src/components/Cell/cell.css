@@ -1,7 +1,7 @@
 .cell {
     width: 40px; 
     height: 40px;
-    background-color: #ccc;
+    background-color: #1ebfeb;
     border: 1px solid #999;
     display: flex;
     justify-content: center;
@@ -11,12 +11,22 @@
   }
   
   .cell.open {
-    background-color: #fff;
+    background-color: #ff0000;
   }
   
-  .cell:hover {
-    background-color: #ddd;
+  .cell.flag{
+    background-image: url('../../assets/images/flag.png');
+    background-size: 40px;
+    background-repeat: no-repeat;
   }
+
+  .cell.probably{
+    background-image: url(../../assets/images/probably.png);
+    background-size: 40px;
+    background-repeat: no-repeat;
+  }
+  
+  
   
   .board{
     display: flex;
