@@ -24,6 +24,12 @@
     background-size: 40px;
     background-repeat: no-repeat;
   }
+
+  .cell.mine{
+    background-image: url('../../assets/images/minas.png');
+    background-size: 40px;
+    background-repeat: no-repeat;
+  }
   
   /* cell.css */
 
