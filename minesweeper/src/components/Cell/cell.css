@@ -30,13 +30,10 @@
     background-size: 40px;
     background-repeat: no-repeat;
   }
-  
-  /* cell.css */
 
-.cell.mine {
-  background-color: red; /* Color for cells with mines */
-}
-
+  .cell.notMine{
+    background-color: rgb(12, 245, 12);
+  }
   
   .board{
     display: flex;
