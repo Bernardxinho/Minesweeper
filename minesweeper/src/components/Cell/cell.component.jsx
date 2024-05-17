@@ -1,8 +1,8 @@
+// Cell Component
 import React, { useState } from 'react';
 import './cell.css';
-import mineImage from '../../assets/images/minas.png';
 
-const Cell = ({ cell, revealCell }) => {
+const Cell = ({ cell, revealCell, bombPositions }) => {
   const [clicked, setClicked] = useState(false);
   const [cellStatus, setCellStatus] = useState(0);
 
@@ -11,7 +11,13 @@ const Cell = ({ cell, revealCell }) => {
 
     console.log(`Célula clicada: ${cell.row}, ${cell.col}`);
     setClicked(true);
-    revealCell(cell.row, cell.col);
+
+    if (cell.isBomb) {
+      console.log('There is a bomb here!');
+      //Gameover
+    } else {
+      revealCell(cell.row, cell.col);
+    }
   };
 
   const handleContextMenu = (event) => {
@@ -27,10 +33,9 @@ const Cell = ({ cell, revealCell }) => {
     event.stopPropagation();
   };
 
-
   let className = 'cell';
 
-  if (clicked && cell.isMine) {
+  if (clicked && cell.isBomb) {
     className += ' mine';
   } else if (cellStatus === 1) {
     className += ' flag';
@@ -38,15 +43,13 @@ const Cell = ({ cell, revealCell }) => {
     className += ' probably';
   }
 
-
-
   return (
     <div
       className={className}
       onClick={handleClick}
       onContextMenu={handleContextMenu}
     >
-    {clicked && cell.isMine && <img src={mineImage} alt="Mina" className="mine-image" />}
+      {clicked && cell.isBomb && <img/>}
     </div>
   );
 };
