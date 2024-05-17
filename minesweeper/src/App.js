@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
-import Board from "./components/Board/board.component";
-import ControlPanel from "./components/ControlPanel/control-panel.component";
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import Board from './components/Board/board.component';
+import ControlPanel from './components/ControlPanel/control-panel.component';
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -10,80 +10,46 @@ function App() {
   const [col, setCol] = useState(0);
   const [fil, setFil] = useState(0);
   const [min, setMin] = useState(0);
-
   useEffect(() => {
-    configureBoard();
-  }, [selectedLevel]);
-
-  useEffect(() => {
-    if (!gameStarted) {
-      reset();
-    } else {
-      configureBoard();
-    }
-  }, [gameStarted]);
-
-  const configureBoard = () => {
-    let cols, rows, mines;
     if (selectedLevel === "1") {
-      cols = 9;
-      rows = 9;
-      mines = 10;
+      setCol(9);
+      setFil(9);
+      setMin(10);
     } else if (selectedLevel === "2") {
-      cols = 16;
-      rows = 16;
-      mines = 40;
+      setCol(16);
+      setFil(16);
+      setMin(40);
     } else if (selectedLevel === "3") {
-      cols = 16;
-      rows = 30;
-      mines = 99;
-    } else {
-      cols = 0;
-      rows = 0;
-      mines = 0;
+      setCol(16);
+      setFil(30);
+      setMin(99);
     }
-    setCol(cols);
-    setFil(rows);
-    setMin(mines);
-  };
+},[selectedLevel]);
 
-  const reset = () => {
-    setCol(0);
-    setFil(0);
-    setMin(0);
-    console.log("resetou");
-  };
 
-  const handleGameStart = () => {
-    setGameStarted(!gameStarted);
-  };
 
-  const handleLevelChange = (event) => {
-    const { value } = event.currentTarget;
-    setSelectedLevel(value);
-    setMin(0);
-  };
 
-  return (
-    <div className="app">
-      <h1 className="minesweeperTitle">Minesweeper Cocacolastic</h1>
-      <ControlPanel
-        onGameStart={handleGameStart}
-        gameStarted={gameStarted}
-        selectedLevel={selectedLevel}
-        onLevelChange={handleLevelChange}
-      />
-      {gameStarted && (
-        <Board
-          rows={fil}
-          cols={col}
-          mines={min}
-          onGameStart={handleGameStart}
-          gameStarted={gameStarted}
-        />
-      )}
-    </div>
-  );
+const handleGameStart = () => {
+  setGameStarted(!gameStarted);
+};
+
+const handleLevelChange = (event) => {
+  const { value } = event.currentTarget;
+  setSelectedLevel(value);
+};
+
+return (
+  <div className="app">
+    <h1 className='minesweeperTitle'>Minesweeper Cocacolastic</h1>
+    <ControlPanel
+      onGameStart={handleGameStart}
+      gameStarted={gameStarted}
+      selectedLevel={selectedLevel}
+      onLevelChange={handleLevelChange}
+    />
+    <Board rows={fil} cols={col} mines={min} /> {/* Passando as propriedades para o componente Board */}
+  </div>
+);
 }
 
 export default App;
