@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Cell from '../Cell/cell.component';
 import './board.css';
 
-const Board = ({ rows, cols, mines }) => {
+const Board = ({ rows, cols, mines, gameStarted }) => {
   const [grid, setGrid] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [bombPositions, setBombPositions] = useState([]);
+  
 
   useEffect(() => {  
     const newGrid = [];
@@ -61,7 +62,7 @@ const Board = ({ rows, cols, mines }) => {
       {grid.map((row, rowIndex) => (
         <div key={rowIndex} className="row">
           {row.map((cell, colIndex) => (
-            <Cell key={colIndex} cell={cell} revealCell={revealCell} bombPositions={bombPositions} />
+            <Cell key={colIndex} cell={cell} revealCell={revealCell} bombPositions={bombPositions} gameStarted={gameStarted} />
           ))}
         </div>
       ))}

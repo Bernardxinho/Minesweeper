@@ -10,32 +10,40 @@ function App() {
   const [col, setCol] = useState(0);
   const [fil, setFil] = useState(0);
   const [min, setMin] = useState(0);
-  useEffect(() => {
+
+  const configureBoard = () => {
+    var cols = 0, rows = 0, mines = 0;
     if (selectedLevel === "1") {
-      setCol(9);
-      setFil(9);
-      setMin(10);
+      cols = 9;
+      rows = 9;
+      mines = 10;
     } else if (selectedLevel === "2") {
-      setCol(16);
-      setFil(16);
-      setMin(40);
+      cols = 16;
+      rows = 16;
+      mines = 40;
     } else if (selectedLevel === "3") {
-      setCol(16);
-      setFil(30);
-      setMin(99);
+      cols = 16;
+      rows = 30;
+      mines = 99;
     }
-},[selectedLevel]);
+    setCol(cols);
+    setFil(rows);
+    setMin(mines);
+  };
 
+  useEffect(() => {
+    configureBoard();
+  }, [selectedLevel]);
 
-
-
-const handleGameStart = () => {
-  setGameStarted(!gameStarted);
+  const handleGameStart = () => {
+    setGameStarted(!gameStarted);
+    
 };
 
 const handleLevelChange = (event) => {
   const { value } = event.currentTarget;
   setSelectedLevel(value);
+  setMin(0);
 };
 
 return (
@@ -47,7 +55,9 @@ return (
       selectedLevel={selectedLevel}
       onLevelChange={handleLevelChange}
     />
-    <Board rows={fil} cols={col} mines={min} /> {/* Passando as propriedades para o componente Board */}
+    <Board rows={fil} cols={col} mines={min}
+      onGameStart={handleGameStart}
+      gameStarted={gameStarted} /> {/* Passando as propriedades para o componente Board */}
   </div>
 );
 }

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './cell.css';
 
-const Cell = ({ cell, revealCell, bombPositions }) => {
+const Cell = ({ cell, revealCell, bombPositions, gameStarted  }) => {
   const [clicked, setClicked] = useState(false);
   const [cellStatus, setCellStatus] = useState(0);
 
@@ -44,13 +44,14 @@ const Cell = ({ cell, revealCell, bombPositions }) => {
   }
 
   return (
-    <div
+    <button
       className={className}
       onClick={handleClick}
       onContextMenu={handleContextMenu}
+      disabled = {!gameStarted}
     >
       {clicked && cell.isBomb && <img/>}
-    </div>
+    </button>
   );
 };
 
