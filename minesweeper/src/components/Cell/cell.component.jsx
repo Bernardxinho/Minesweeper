@@ -1,15 +1,15 @@
-// Cell Component
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './cell.css';
 
-const Cell = ({ cell, revealCell, bombPositions }) => {
+const Cell = ({ cell, revealCell }) => {
+
   const [clicked, setClicked] = useState(false);
   const [cellStatus, setCellStatus] = useState(0);
 
-  const handleClick = (event) => {
+   const handleClick = (event) => {
     event.preventDefault();
 
-    console.log(`Célula clicada: ${cell.row}, ${cell.col}`);
+    console.log(`Célula clicada: ${cell.row}, ${cell.col}, ${cell.adjacentBombs}`);
     setClicked(true);
 
     if (cell.isBomb) {
@@ -34,14 +34,27 @@ const Cell = ({ cell, revealCell, bombPositions }) => {
   };
 
   let className = 'cell';
+  let text = '';
+  if(clicked){
+     if (cell.isBomb) {
+        className += ' mine';
+        text = '';
+      } 
+  }
 
-  if (clicked && cell.isBomb) {
-    className += ' mine';
+  if (cell.isOpen) {
+    if (cell.adjacentBombs > 0) {
+      className += ' notMine';
+      text = cell.adjacentBombs;
+    } else {
+      className += ' notMine';
+    }
   } else if (cellStatus === 1) {
     className += ' flag';
   } else if (cellStatus === 2) {
     className += ' probably';
   }
+
 
   return (
     <div
@@ -49,7 +62,9 @@ const Cell = ({ cell, revealCell, bombPositions }) => {
       onClick={handleClick}
       onContextMenu={handleContextMenu}
     >
-      {clicked && cell.isBomb && <img/>}
+      {cell.isBomb && <img/>}
+      {cell.isOpen && text}
+      
     </div>
   );
 };
