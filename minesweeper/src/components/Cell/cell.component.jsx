@@ -57,11 +57,10 @@ const Cell = ({ cell, revealCell }) => {
 
 
   return (
-    <button
+    <div
       className={className}
       onClick={handleClick}
       onContextMenu={handleContextMenu}
-      disabled = {!gameStarted}
     >
       {cell.isBomb && <img/>}
       {cell.isOpen && text}
