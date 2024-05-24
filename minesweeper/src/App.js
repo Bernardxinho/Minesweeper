@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Board from './components/Board/board.component';
 import ControlPanel from './components/ControlPanel/control-panel.component';
-
+ 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState("0");
-
+ 
   const [col, setCol] = useState(0);
   const [fil, setFil] = useState(0);
   const [min, setMin] = useState(0);
@@ -25,19 +25,19 @@ function App() {
       setMin(99);
     }
 },[selectedLevel]);
-
-
-
-
+ 
+ 
+ 
+ 
 const handleGameStart = () => {
   setGameStarted(!gameStarted);
 };
-
+ 
 const handleLevelChange = (event) => {
   const { value } = event.currentTarget;
   setSelectedLevel(value);
 };
-
+ 
 return (
   <div className="app">
     <h1 className='minesweeperTitle'>Minesweeper Cocacolastic</h1>
@@ -51,5 +51,5 @@ return (
   </div>
 );
 }
-
+ 
 export default App;

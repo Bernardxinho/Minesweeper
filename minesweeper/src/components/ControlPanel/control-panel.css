@@ -24,7 +24,7 @@
   
   #panel-control .form,
   #panel-control .form-metadata {
-    width: 100%;
+    width: auto;
     padding: 10px 20px;
   }
   
@@ -97,7 +97,6 @@
     display: grid;
     justify-content: center;
     perspective: 1000px;
-    user-select: none;
   }
   
   #game.avancado {
@@ -156,9 +155,70 @@
   
   #panel-control #top10 {
     grid-column: 2 / -1;
+    margin-right: 40px;
   }
   
   .hide {
     display: none;
   }
+
+  .sr-only {
+    margin-left: 15px;
+    padding-top: 10px;
+  }
   
+  /* Estilos para o fieldset */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  width: 180px;
+}
+
+.form-group label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilos para o select */
+.form-group select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  appearance: none; /* Remove a seta padrão */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23333" d="M2 0L0 2h4zM2 5L0 3h4z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 0.65rem auto;
+  transition: border-color 0.3s ease;
+}
+
+.form-group select:focus {
+  border-color: #007BFF; /* Cor da borda ao focar */
+  outline: none;
+}
+
+/* Adiciona um pouco de espaço entre as opções */
+.form-group option {
+  padding: 0.5rem;
+}
+
+/* Para remover a seta padrão no IE */
+.form-group select::-ms-expand {
+  display: none;
+}
+
+/* Estilo para a seta personalizada */
+.form-group select::-ms-expand {
+  display: none;
+}
+
+.form-group select:focus::-ms-value {
+  background-color: #fff;
+}

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Cell from '../Cell/cell.component';
 import './board.css';
+import GameOverModal from '../GameOver/game-over-modal.component';
 
 const Board = ({ rows, cols, mines, gameStarted }) => {
   const [grid, setGrid] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [bombPositions, setBombPositions] = useState([]);
-  
+  const [revealedGrid, setRevealedGrid] = useState([]);
 
   useEffect(() => {  
     const newGrid = [];
@@ -69,29 +70,50 @@ const Board = ({ rows, cols, mines, gameStarted }) => {
     if (grid[row][col].isOpen || gameOver) {
       return;
     }
-
+  
     const revealGrid = (r, c, updatedGrid) => {
       if (r < 0 || r >= rows || c < 0 || c >= cols || updatedGrid[r][c].isOpen) {
         return;
       }
-
+  
       updatedGrid[r][c].isOpen = true;
-
+  
       if (updatedGrid[r][c].adjacentBombs === 0) {
         const directions = [
-          [-1, -1], [-1, 0], [-1, 1],
-          [0, -1],           [0, 1],
-          [1, -1],  [1, 0],  [1, 1]
+          [-1, 0], [1, 0], // Up and down
+          [0, -1], [0, 1]  // Left and right
         ];
         directions.forEach(([dx, dy]) => {
           revealGrid(r + dx, c + dy, updatedGrid);
         });
       }
     };
-
+  
     const updatedGrid = [...grid];
     revealGrid(row, col, updatedGrid);
     setGrid(updatedGrid);
+  };
+
+  const handleGameOver = () => {
+    setGameOver(true);
+  };
+  
+  useEffect(() => {
+    if (gameOver) {
+      const updatedGrid = [...grid];
+      updatedGrid.forEach(row => {
+        row.forEach(cell => {
+          cell.isOpen = true;
+        });
+      });
+      setGrid(updatedGrid);
+      setRevealedGrid(updatedGrid);
+    }
+  }, [gameOver, grid]);
+  
+  const handleModalClose = () => {
+    setGameOver(false);
+    setRevealedGrid([]);
   };
 
   return (
@@ -99,10 +121,23 @@ const Board = ({ rows, cols, mines, gameStarted }) => {
       {grid.map((row, rowIndex) => (
         <div key={rowIndex} className="row">
           {row.map((cell, colIndex) => (
-            <Cell key={colIndex} cell={cell} revealCell={revealCell} />
+            <Cell
+              key={colIndex}
+              cell={cell}
+              revealCell={revealCell}
+              handleGameOver={handleGameOver}
+              gameOver={gameOver}
+            />
           ))}
         </div>
       ))}
+      <GameOverModal
+        isOpen={gameOver}
+        points={0}
+        revealedGrid={revealedGrid}
+        handleClose={handleModalClose}
+        onSave={() => {}}
+      />
     </div>
   );
 };

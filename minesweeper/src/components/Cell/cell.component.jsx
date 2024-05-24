@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './cell.css';
+import GameOverModal from '../GameOver/game-over-modal.component';
 
-const Cell = ({ cell, revealCell }) => {
-
+const Cell = ({ cell, revealCell, handleGameOver, gameOver }) => {
   const [clicked, setClicked] = useState(false);
   const [cellStatus, setCellStatus] = useState(0);
 
-   const handleClick = (event) => {
+  const handleClick = (event) => {
     event.preventDefault();
 
-    console.log(`Célula clicada: ${cell.row}, ${cell.col}, ${cell.adjacentBombs}`);
+    if (gameOver || clicked) return; // Verificar se o jogo já acabou ou se a célula já foi clicada
     setClicked(true);
 
     if (cell.isBomb) {
       console.log('There is a bomb here!');
-      //Gameover
+      revealCell(cell.row, cell.col);
+      handleGameOver();
     } else {
       revealCell(cell.row, cell.col);
     }
@@ -22,6 +23,9 @@ const Cell = ({ cell, revealCell }) => {
 
   const handleContextMenu = (event) => {
     event.preventDefault();
+
+    if (gameOver || clicked) return;
+
     let newStatus = cellStatus + 1;
     if (newStatus === 3) {
       newStatus = 0;
@@ -35,11 +39,8 @@ const Cell = ({ cell, revealCell }) => {
 
   let className = 'cell';
   let text = '';
-  if(clicked){
-     if (cell.isBomb) {
-        className += ' mine';
-        text = '';
-      } 
+  if (cell.isBomb && cell.isOpen) {
+    className += ' mine';
   }
 
   if (cell.isOpen) {
@@ -55,16 +56,15 @@ const Cell = ({ cell, revealCell }) => {
     className += ' probably';
   }
 
-
   return (
     <div
       className={className}
       onClick={handleClick}
       onContextMenu={handleContextMenu}
     >
-      {cell.isBomb && <img/>}
+      {cell.isBomb && <img />}
       {cell.isOpen && text}
-      
+      {gameOver && <GameOverModal />} {/* Exibir a modal de fim de jogo quando o jogo terminar */}
     </div>
   );
 };
