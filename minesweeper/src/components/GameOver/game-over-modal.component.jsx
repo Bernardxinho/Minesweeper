@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./game-over-modal.css";
 
-function GameOverModal({ isOpen, points = 0, revealedGrid, handleClose, onSave }) {
+function GameOverModal({ isOpen, points = 0, revealedGrid, handleClose, onSave, gameStarted, setGameStarted }) {
   const ref = useRef();
   const [name, setName] = useState("");
 
@@ -22,6 +22,7 @@ function GameOverModal({ isOpen, points = 0, revealedGrid, handleClose, onSave }
   };
 
   const handleModalClose = () => {
+    setGameStarted(false)
     handleClose();
   };
 

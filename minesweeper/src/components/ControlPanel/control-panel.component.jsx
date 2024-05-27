@@ -6,8 +6,7 @@ import GameOverModal from "../GameOver/game-over-modal.component";
 import Top10Modal from "../Top10Modal/top10modal";
 
 function ControlPanel(props) {
-  const { selectedLevel, onGameStart, onLevelChange } = props;
-  const [gameStarted, setGameStarted] = useState(false);
+  const { selectedLevel, onGameStart, onLevelChange, gameStarted, setGameStarted } = props;
   const [isGameOver, setIsGameOver] = useState(false);
   const [isTop10Open, setIsTop10Open] = useState(false);
   const [points, setPoints] = useState(0);
@@ -131,6 +130,8 @@ function ControlPanel(props) {
         points={points}
         handleClose={handleCloseGameOverModal}
         onSave={handleSaveScore}
+        gameStarted={gameStarted}
+        setGameStarted={setGameStarted}
       />
       <Top10Modal
         isOpen={isTop10Open}
