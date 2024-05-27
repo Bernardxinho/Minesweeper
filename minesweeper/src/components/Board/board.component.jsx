@@ -8,6 +8,7 @@ const Board = ({ rows, cols, mines, gameStarted }) => {
   const [gameOver, setGameOver] = useState(false);
   const [bombPositions, setBombPositions] = useState([]);
   const [revealedGrid, setRevealedGrid] = useState([]);
+  const [flaggedCells, setFlaggedCells] = useState([]);
 
   useEffect(() => {  
     const newGrid = [];
@@ -66,6 +67,42 @@ const Board = ({ rows, cols, mines, gameStarted }) => {
     setBombPositions(newBombPositions);
   }, [rows, cols, mines]);
 
+  const handleFlagToggle = (row, col) => {
+    const updatedGrid = [...grid];
+    const cell = updatedGrid[row][col];
+  
+    let newFlaggedCells = [...flaggedCells];
+    if (cell.isFlagged) {
+      cell.isFlagged = false;
+      newFlaggedCells = newFlaggedCells.filter(
+        (pos) => pos.row !== row || pos.col !== col
+      );
+    } else {
+      if(flaggedCells.length < bombPositions.length){
+        console.log('toniflag');
+        document.addEventListener('contextMenu', (event) => { 
+          event.preventDefault();
+        });
+      }else{
+        console.log('variasfalgs');
+        cell.isFlagged = true;
+        newFlaggedCells.push({ row, col });
+      }
+    }
+    setFlaggedCells(newFlaggedCells);
+    setGrid(updatedGrid);
+  
+    const allBombsFlagged = bombPositions.every((bomb) =>
+      newFlaggedCells.some(
+        (flag) => flag.row === bomb.row && flag.col === bomb.col
+      )
+    );
+  
+    if (allBombsFlagged) {
+      setGameOver(true);
+    }
+  };
+  
   const revealCell = (row, col) => {
     if (grid[row][col].isOpen || gameOver) {
       return;
@@ -80,8 +117,9 @@ const Board = ({ rows, cols, mines, gameStarted }) => {
   
       if (updatedGrid[r][c].adjacentBombs === 0) {
         const directions = [
-          [-1, 0], [1, 0], // Up and down
-          [0, -1], [0, 1]  // Left and right
+          [-1, -1], [-1, 0], [-1, 1],
+          [0, -1],           [0, 1],
+          [1, -1],  [1, 0],  [1, 1]
         ];
         directions.forEach(([dx, dy]) => {
           revealGrid(r + dx, c + dy, updatedGrid);
@@ -127,6 +165,7 @@ const Board = ({ rows, cols, mines, gameStarted }) => {
               revealCell={revealCell}
               handleGameOver={handleGameOver}
               gameOver={gameOver}
+              handleFlagToggle={handleFlagToggle}
             />
           ))}
         </div>

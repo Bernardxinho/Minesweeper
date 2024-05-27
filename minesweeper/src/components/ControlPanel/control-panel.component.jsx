@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./control-panel.css";
 import Timer from "../timer/timer.component";
 import { TIMEOUTGAME_BASICO } from "../../constants";
 import GameOverModal from "../GameOver/game-over-modal.component";
 import Top10Modal from "../Top10Modal/top10modal";
+import Board from "../Board/board.component";
 
 function ControlPanel(props) {
-  const { selectedLevel, onGameStart, onLevelChange } = props;
+  const { selectedLevel, onGameStart, onLevelChange, mines } = props;  // Add mines to props
   const [gameStarted, setGameStarted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isTop10Open, setIsTop10Open] = useState(false);
@@ -61,7 +62,6 @@ function ControlPanel(props) {
     };
   }, [isGameOver]);
 
-  // Example function to simulate points accumulation during the game
   const simulatePointsAccumulation = () => {
     if (gameStarted) {
       setPoints(prevPoints => prevPoints + 1); // Simulating points accumulation
@@ -119,6 +119,12 @@ function ControlPanel(props) {
           <dt>Pontuação:</dt>
           <dd id="points">{points}</dd>
         </dl>
+
+        <dl className={`list-item right${gameStarted ? " gameStarted" : ""}`}>
+          <dt>Numero de Minas:</dt>
+          <dd id="mines">{mines}</dd>
+        </dl>
+
         <div id="top10" className="right">
           <button id="btTop" onClick={handleOpenTop10Modal}>
             Ver TOP 10

@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import './cell.css';
 import GameOverModal from '../GameOver/game-over-modal.component';
 
-const Cell = ({ cell, revealCell, handleGameOver, gameOver }) => {
+const Cell = ({ cell, revealCell, handleGameOver, gameOver, handleFlagToggle }) => {
   const [clicked, setClicked] = useState(false);
   const [cellStatus, setCellStatus] = useState(0);
 
   const handleClick = (event) => {
     event.preventDefault();
 
-    if (gameOver || clicked) return; // Verificar se o jogo já acabou ou se a célula já foi clicada
+    if (gameOver || clicked) return;
     setClicked(true);
 
     if (cell.isBomb) {
-      console.log('There is a bomb here!');
       revealCell(cell.row, cell.col);
       handleGameOver();
     } else {
@@ -31,8 +30,9 @@ const Cell = ({ cell, revealCell, handleGameOver, gameOver }) => {
       newStatus = 0;
     }
     setCellStatus(newStatus);
-    console.log('Right-clicked!');
-    console.log(newStatus);
+
+    // Update flagged status
+    handleFlagToggle(cell.row, cell.col);
 
     event.stopPropagation();
   };
@@ -64,7 +64,6 @@ const Cell = ({ cell, revealCell, handleGameOver, gameOver }) => {
     >
       {cell.isBomb && <img />}
       {cell.isOpen && text}
-      {gameOver && <GameOverModal />} {/* Exibir a modal de fim de jogo quando o jogo terminar */}
     </div>
   );
 };
