@@ -32,7 +32,6 @@
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 5px;
-    width: 100%;
   }
   #panel-control
     .form-metadata:has(#message.hide + :not(.list-item.gameStarted)) {
@@ -155,7 +154,6 @@
   
   #panel-control #top10 {
     grid-column: 2 / -1;
-    margin-right: 40px;
   }
   
   .hide {
