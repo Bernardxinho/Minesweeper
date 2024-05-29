@@ -4,11 +4,9 @@ import Timer from "../timer/timer.component";
 import { TIMEOUTGAME_BASICO } from "../../constants";
 import GameOverModal from "../GameOver/game-over-modal.component";
 import Top10Modal from "../Top10Modal/top10modal";
-import Board from "../Board/board.component";
 
 function ControlPanel(props) {
-  const { selectedLevel, onGameStart, onLevelChange } = props;
-  const [gameStarted, setGameStarted] = useState(false);
+  const { selectedLevel, onGameStart, onLevelChange, mines, setGameStarted, gameStarted } = props;
   const [isGameOver, setIsGameOver] = useState(false);
   const [isTop10Open, setIsTop10Open] = useState(false);
   const [points, setPoints] = useState(0);
@@ -25,7 +23,7 @@ function ControlPanel(props) {
     } else {
       onGameStart();
       setGameStarted(true);
-      setPoints(0); // Reset points when a new game starts
+      setPoints(0);
     }
   };
 
@@ -80,7 +78,7 @@ function ControlPanel(props) {
     <section id="panel-control">
       <h3 className="sr-only">Escolha do Nível</h3>
       <form className="form">
-        <fieldset className="form-group">
+        <fieldset disabled={gameStarted} className="form-group">
           <label htmlFor="btLevel">Nível:</label>
           <select id="btLevel" onChange={onLevelChange}>
             <option value="0">Seleccione...</option>
@@ -122,7 +120,7 @@ function ControlPanel(props) {
 
         <dl className={`list-item right${gameStarted ? " gameStarted" : ""}`}>
           <dt>Numero de Minas:</dt>
-          <dd id="mines">{mines}</dd>
+          <dd id="mines">{mines-props.flagCount}</dd>
         </dl>
 
         <div id="top10" className="right">

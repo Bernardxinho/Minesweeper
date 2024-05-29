@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './cell.css';
-import GameOverModal from '../GameOver/game-over-modal.component';
 
-const Cell = ({ cell, revealCell, handleGameOver, gameOver, handleFlagToggle }) => {
+const Cell = ({ cell, revealCell, handleGameOver, gameOver, handleFlagToggle, mines, flagCount }) => {
   const [clicked, setClicked] = useState(false);
   const [cellStatus, setCellStatus] = useState(0);
 
@@ -31,7 +30,6 @@ const Cell = ({ cell, revealCell, handleGameOver, gameOver, handleFlagToggle }) 
     }
     setCellStatus(newStatus);
 
-    // Update flagged status
     handleFlagToggle(cell.row, cell.col);
 
     event.stopPropagation();
@@ -50,10 +48,12 @@ const Cell = ({ cell, revealCell, handleGameOver, gameOver, handleFlagToggle }) 
     } else {
       className += ' notMine';
     }
-  } else if (cellStatus === 1) {
-    className += ' flag';
-  } else if (cellStatus === 2) {
-    className += ' probably';
+  } else {
+    if (cellStatus === 1) {
+      className += ' flag';
+    } else if (cellStatus === 2) {
+      className += ' probably';
+    }
   }
 
   return (
@@ -62,7 +62,7 @@ const Cell = ({ cell, revealCell, handleGameOver, gameOver, handleFlagToggle }) 
       onClick={handleClick}
       onContextMenu={handleContextMenu}
     >
-      {cell.isBomb && <img />}
+      {cell.isBomb && <img alt='' />}
       {cell.isOpen && text}
     </div>
   );
