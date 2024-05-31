@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./game-over-modal.css";
 
-function GameOverModal({ isOpen, points = 0, revealedGrid, handleClose, onSave, gameStarted, setGameStarted }) {
+function GameOverModal({ isOpen, points = 0, handleClose, setGameStarted }) {
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -12,7 +12,6 @@ function GameOverModal({ isOpen, points = 0, revealedGrid, handleClose, onSave, 
 
   const handleSave = () => {
     if (name.trim() !== "") {
-      onSave(name, points);
       setName(""); // Reset the name field
     }
     handleClose();
@@ -30,7 +29,7 @@ function GameOverModal({ isOpen, points = 0, revealedGrid, handleClose, onSave, 
           <span className="closeModal" onClick={handleModalClose}>
             &times;
           </span>
-          <div>Jogo Terminado</div>
+          <div class="blueBG">Jogo Terminado</div>
         </header>
         <div className="info" id="messageGameOver">
           <p>Pontuação: {points}</p>

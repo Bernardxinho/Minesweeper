@@ -3,6 +3,12 @@ import Cell from "../Cell/cell.component";
 import "./board.css";
 import GameOverModal from "../GameOver/game-over-modal.component";
 
+const DIRECTIONS = [
+  [-1, -1],[-1, 0],[-1, 1],
+  [0, -1]         ,[0, 1],
+  [1, -1] ,[1, 0] ,[1, 1],
+];
+
 const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setFlagCount }) => {
   const [grid, setGrid] = useState([]);
   const [gameOver, setGameOver] = useState(false);
@@ -10,6 +16,7 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
   const [revealedGrid, setRevealedGrid] = useState([]);
   const [flaggedCells, setFlaggedCells] = useState([]);
   const [check, setCheck] = useState(1);
+
 
   useEffect(() => {
     const newGrid = [];
@@ -30,35 +37,39 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
       newGrid.push(row);
     }
 
+    placeBombs(newGrid, newBombPositions);
+    calculateAdjacentBombs(newGrid);
+    setGrid(newGrid);
+    setBombPositions(newBombPositions);
+  }, [rows, cols, mines]);
+
+  useEffect(() => {
+    if (!gameStarted) {
+      setFlaggedCells([]); // Reset flaggedCells when game starts
+      setCheck(0); // Reset check when game starts
+    }
+  }, [gameStarted]);
+
+  const placeBombs = (newGrid, newBombPositions) => {
     let bombsPlaced = 0;
     while (bombsPlaced < mines) {
       const randomRow = Math.floor(Math.random() * rows);
       const randomCol = Math.floor(Math.random() * cols);
-
-      if (newGrid[randomRow][randomCol].isBomb) {
-        continue;
-      } else {
+  
+      if (!newGrid[randomRow][randomCol].isBomb) {
         newGrid[randomRow][randomCol].isBomb = true;
         newBombPositions.push({ row: randomRow, col: randomCol });
         bombsPlaced++;
       }
     }
+  };
 
+  const calculateAdjacentBombs = (newGrid) => {
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
         if (!newGrid[i][j].isBomb) {
           let bombCount = 0;
-          const directions = [
-            [-1, -1],
-            [-1, 0],
-            [-1, 1],
-            [0, -1],
-            [0, 1],
-            [1, -1],
-            [1, 0],
-            [1, 1],
-          ];
-          directions.forEach(([dx, dy]) => {
+          DIRECTIONS.forEach(([dx, dy]) => {
             const newRow = i + dx;
             const newCol = j + dy;
             if (
@@ -75,18 +86,8 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
         }
       }
     }
-
-    setGrid(newGrid);
-    setBombPositions(newBombPositions);
-  }, [rows, cols, mines]);
-
-  useEffect(() => {
-    if (!gameStarted) {
-      setFlaggedCells([]); // Reset flaggedCells when game starts
-      setCheck(0); // Reset check when game starts
-    }
-  }, [gameStarted]);
-
+  };
+  
   const handleFlagToggle = (row, col) => {
     const updatedGrid = [...grid];
     const cell = updatedGrid[row][col];
@@ -141,11 +142,7 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
     }
 
     const revealGrid = (r, c, updatedGrid) => {
-      if (
-        r < 0 ||
-        r >= rows ||
-        c < 0 ||
-        c >= cols ||
+      if (r < 0 || r >= rows || c < 0 || c >= cols ||
         updatedGrid[r][c].isOpen
       ) {
         setFlagCount(0)
@@ -155,17 +152,7 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
       updatedGrid[r][c].isOpen = true;
 
       if (updatedGrid[r][c].adjacentBombs === 0) {
-        const directions = [
-          [-1, -1],
-          [-1, 0],
-          [-1, 1],
-          [0, -1],
-          [0, 1],
-          [1, -1],
-          [1, 0],
-          [1, 1],
-        ];
-        directions.forEach(([dx, dy]) => {
+        DIRECTIONS.forEach(([dx, dy]) => {
           revealGrid(r + dx, c + dy, updatedGrid);
         });
       }

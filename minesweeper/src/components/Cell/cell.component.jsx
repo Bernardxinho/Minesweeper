@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './cell.css';
 
-const Cell = ({ cell, revealCell, handleGameOver, gameOver, handleFlagToggle, mines, flagCount }) => {
+const Cell = ({ cell, revealCell, handleGameOver, gameOver, handleFlagToggle}) => {
   const [clicked, setClicked] = useState(false);
   const [cellStatus, setCellStatus] = useState(0);
 
+  //Left Click
   const handleClick = (event) => {
     event.preventDefault();
 
@@ -19,6 +20,7 @@ const Cell = ({ cell, revealCell, handleGameOver, gameOver, handleFlagToggle, mi
     }
   };
 
+  //Rigth Click
   const handleContextMenu = (event) => {
     event.preventDefault();
 

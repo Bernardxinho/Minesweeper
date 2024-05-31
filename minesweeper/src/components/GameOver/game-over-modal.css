@@ -1,26 +1,66 @@
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 10;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.7); 
+  transition: opacity 0.3s ease-in-out; 
+  opacity: 0;
 }
 
 .modal.open {
   display: block;
+  opacity: 1; 
+}
+
+#modal-gameOver {
+  background-color: rgba(0, 0, 0, 0.8); 
 }
 
 .modal .estilos {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+  background-color: #fff;
+  margin: 10% auto; 
+  padding: 30px; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.19); 
+  width: 60%; 
+  max-width: 600px; 
+  text-align: center; 
+  animation: modalFadeIn 0.5s; 
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal .close-btn {
+  position: absolute;
+  top: 10px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.modal .close-btn:hover,
+.modal .close-btn:focus {
+  color: #000;
+  cursor: pointer;
+}
+
+.modal .estilos, .modal .close-btn {
+  transition: all 0.3s ease;
 }
 
 .closeModal {
@@ -35,4 +75,14 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.blueBG{
+  color:black;
+  background-color: #D2691E;
+}
+
+.closeModal{
+  position: relative !important;
+  top:10px;
 }
