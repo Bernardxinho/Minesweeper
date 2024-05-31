@@ -187,6 +187,7 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
 
   return (
     <div className="board">
+      {gameStarted && <div className="placeFlag">Flags Placed: {flagCount}</div>}
       {grid.map((row, rowIndex) => (
         <div key={rowIndex} className="row">
           {row.map((cell, colIndex) => (
@@ -203,7 +204,6 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
           ))}
         </div>
       ))}
-      {gameStarted && <div>Flags Placed: {flagCount}</div>}
       <GameOverModal
         isOpen={gameOver}
         points={0}
