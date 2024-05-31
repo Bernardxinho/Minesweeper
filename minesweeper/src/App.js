@@ -10,6 +10,7 @@ function App() {
   const [fil, setFil] = useState(0);
   const [min, setMin] = useState(0);
   const [flagCount, setFlagCount] = useState(0); // New state for flag count
+  const [points, setPoints] = useState(0)
 
   var coluna, fila, mina;
 
@@ -60,6 +61,8 @@ function App() {
         onLevelChange={handleLevelChange}
         mines={min}
         flagCount={flagCount}
+        setPoints={setPoints}
+        points={points}
       />
       <Board 
         rows={fil} 
@@ -68,6 +71,7 @@ function App() {
         setGameStarted={setGameStarted} 
         gameStarted={gameStarted} 
         flagCount={flagCount} 
+        points = {points}
         setFlagCount={setFlagCount} // Pass the state and updater function as props
       /> 
     </div>

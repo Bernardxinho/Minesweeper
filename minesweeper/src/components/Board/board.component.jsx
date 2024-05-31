@@ -9,13 +9,14 @@ const DIRECTIONS = [
   [1, -1] ,[1, 0] ,[1, 1],
 ];
 
-const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setFlagCount }) => {
+const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setFlagCount, points}) => {
   const [grid, setGrid] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [bombPositions, setBombPositions] = useState([]);
   const [revealedGrid, setRevealedGrid] = useState([]);
   const [flaggedCells, setFlaggedCells] = useState([]);
   const [check, setCheck] = useState(1);
+
 
 
   useEffect(() => {
@@ -45,8 +46,8 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
 
   useEffect(() => {
     if (!gameStarted) {
-      setFlaggedCells([]); // Reset flaggedCells when game starts
-      setCheck(0); // Reset check when game starts
+      setFlaggedCells([]);
+      setCheck(0);
     }
   }, [gameStarted]);
 
@@ -205,12 +206,11 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
         </div>
       ))}
       <GameOverModal
+        points={points}
         isOpen={gameOver}
-        points={0}
         revealedGrid={revealedGrid}
         handleClose={handleModalClose}
         setGameStarted={setGameStarted}
-        onSave={() => {}}
       />
     </div>
   );

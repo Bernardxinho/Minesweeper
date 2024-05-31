@@ -5,9 +5,9 @@ import { TIMEOUTGAME_BASICO } from "../../constants";
 import GameOverModal from "../GameOver/game-over-modal.component";
 
 function ControlPanel(props) {
-  const { selectedLevel, onGameStart, onLevelChange, mines, setGameStarted, gameStarted } = props;
+  const { selectedLevel, onGameStart, onLevelChange, mines, setGameStarted, gameStarted, points, setPoints, isOpen } = props;
   const [isGameOver, setIsGameOver] = useState(false);
-  const [points, setPoints] = useState(0);
+  
 
   const handleTimer = (t) => {
     if (t === 0) onGameStart();
@@ -18,7 +18,7 @@ function ControlPanel(props) {
       setIsGameOver(true);
       setGameStarted(false);
     } else {
-      onGameStart();
+      
       setGameStarted(true);
       setPoints(0);
     }
@@ -33,6 +33,7 @@ function ControlPanel(props) {
   const simulatePointsAccumulation = () => {
     if (gameStarted) {
       setPoints(prevPoints => prevPoints + 1); // Simulating points accumulation
+      
     }
   };
 
@@ -78,11 +79,6 @@ function ControlPanel(props) {
             )}
           </dd>
         </dl>
-        <dl className={`list-item right${gameStarted ? " gameStarted" : ""}`}>
-          <dt>Pontuação TOP:</dt>
-          <dd id="pointsTop">0</dd>
-        </dl>
-
         <dl className={`list-item left${gameStarted ? " gameStarted" : ""}`}>
           <dt>Pontuação:</dt>
           <dd id="points">{points}</dd>
