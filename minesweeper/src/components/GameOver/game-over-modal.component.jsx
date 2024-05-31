@@ -1,17 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./game-over-modal.css";
 
-function GameOverModal({ isOpen, points = 0, revealedGrid, handleClose, onSave }) {
-  const ref = useRef();
+function GameOverModal({ isOpen, points = 0, revealedGrid, handleClose, onSave, gameStarted, setGameStarted }) {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    if (isOpen) {
-      ref.current?.showModal();
-    } else {
-      ref.current?.close();
+    if (!isOpen) {
+      setGameStarted(false);
     }
-  }, [isOpen]);
+  }, [isOpen, setGameStarted]);
 
   const handleSave = () => {
     if (name.trim() !== "") {
@@ -22,16 +19,12 @@ function GameOverModal({ isOpen, points = 0, revealedGrid, handleClose, onSave }
   };
 
   const handleModalClose = () => {
+    setGameStarted(false);
     handleClose();
   };
 
   return (
-    <dialog
-      id="modal-gameOver"
-      ref={ref}
-      onClose={handleModalClose}
-      onCancel={handleModalClose}
-    >
+    <div className={`modal ${isOpen ? 'open' : ''}`} id="modal-gameOver">
       <div className="estilos">
         <header>
           <span className="closeModal" onClick={handleModalClose}>
@@ -60,7 +53,7 @@ function GameOverModal({ isOpen, points = 0, revealedGrid, handleClose, onSave }
           </p>
         </footer>
       </div>
-    </dialog>
+    </div>
   );
 }
 
