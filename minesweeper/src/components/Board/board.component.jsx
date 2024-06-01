@@ -16,6 +16,7 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
   const [revealedGrid, setRevealedGrid] = useState([]);
   const [flaggedCells, setFlaggedCells] = useState([]);
   const [check, setCheck] = useState(1);
+  const [total, setTotal] = useState(0);
 
 
 
@@ -179,6 +180,8 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
       });
       setGrid(updatedGrid);
       setRevealedGrid(updatedGrid);
+      let tudo = points - flagCount
+      setTotal(tudo)
     }
   }, [gameOver, grid]);
 
@@ -212,6 +215,8 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
         revealedGrid={revealedGrid}
         handleClose={handleModalClose}
         setGameStarted={setGameStarted}
+        flagCount={flagCount}
+        total={total}
       />
     </div>
   );
