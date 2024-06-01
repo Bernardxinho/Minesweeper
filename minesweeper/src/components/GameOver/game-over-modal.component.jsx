@@ -18,7 +18,7 @@ function GameOverModal({ isOpen, points, handleClose, setGameStarted }) {
   };
 
   const handleModalClose = () => {
-    setGameStarted(false);
+    setGameStarted(true);
     handleClose();
   };
 
