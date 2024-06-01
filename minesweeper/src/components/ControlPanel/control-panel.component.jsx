@@ -5,7 +5,7 @@ import { TIMEOUTGAME_BASICO } from "../../constants";
 import GameOverModal from "../GameOver/game-over-modal.component";
 
 function ControlPanel(props) {
-  const { selectedLevel, onGameStart, onLevelChange, mines, setGameStarted, gameStarted, points, setPoints, isOpen } = props;
+  const { selectedLevel, onGameStart, onLevelChange, mines, setGameStarted, gameStarted, points, setPoints} = props;
   const [isGameOver, setIsGameOver] = useState(false);
   
 
@@ -18,7 +18,6 @@ function ControlPanel(props) {
       setIsGameOver(true);
       setGameStarted(false);
     } else {
-      
       setGameStarted(true);
       setPoints(0);
     }
@@ -29,11 +28,9 @@ function ControlPanel(props) {
     onGameStart(); // Reinicia o jogo ao fechar o modal
   };
 
-
   const simulatePointsAccumulation = () => {
     if (gameStarted) {
       setPoints(prevPoints => prevPoints + 1); // Simulating points accumulation
-      
     }
   };
 

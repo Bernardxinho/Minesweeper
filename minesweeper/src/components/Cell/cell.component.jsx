@@ -14,6 +14,7 @@ const Cell = ({ cell, revealCell, handleGameOver, gameOver, handleFlagToggle}) =
 
     if (cell.isBomb) {
       revealCell(cell.row, cell.col);
+      
       handleGameOver();
     } else {
       revealCell(cell.row, cell.col);

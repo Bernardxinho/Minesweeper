@@ -166,6 +166,7 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
 
   const handleGameOver = () => {
     setGameOver(true);
+    setGameStarted(false);
   };
 
   useEffect(() => {

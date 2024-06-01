@@ -25,21 +25,21 @@ function App() {
   } else if (selectedLevel === "3") {
     coluna = 16;
     fila = 30;
-    mina = 99;
+    mina = 10;
   }
 
   useEffect(() => {
-    if(gameStarted === false){
+    if (gameStarted === false) {
       setCol(0)
       setFil(0)
       setMin(0)
       setFlagCount(0); // Reset flag count when game starts
-    }else{
+    } else {
       setCol(coluna)
       setFil(fila)
       setMin(mina)
     }
-  },[gameStarted]);
+  }, [gameStarted]);
 
   const handleGameStart = () => {
     setGameStarted(!gameStarted);
@@ -64,16 +64,16 @@ function App() {
         setPoints={setPoints}
         points={points}
       />
-      <Board 
-        rows={fil} 
-        cols={col} 
-        mines={min} 
-        setGameStarted={setGameStarted} 
-        gameStarted={gameStarted} 
-        flagCount={flagCount} 
-        points = {points}
+      <Board
+        rows={fil}
+        cols={col}
+        mines={min}
+        setGameStarted={setGameStarted}
+        gameStarted={gameStarted}
+        flagCount={flagCount}
+        points={points}
         setFlagCount={setFlagCount} // Pass the state and updater function as props
-      /> 
+      />
     </div>
   );
 }
