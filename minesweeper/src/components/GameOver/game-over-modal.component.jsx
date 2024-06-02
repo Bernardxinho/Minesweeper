@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./game-over-modal.css";
 
-function GameOverModal({ isOpen, points, handleClose, setGameStarted, flagCount, total }) {
-
+function GameOverModal(props) {
+  const { isOpen, handleClose, setGameStarted, total } = props;
   useEffect(() => {
     if (!isOpen) {
       setGameStarted(false);

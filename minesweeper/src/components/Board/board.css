@@ -17,14 +17,6 @@
   background-color: #fff;
 }
 
-/**********************************************
-*** © Linguagens Script > DEIS > ISEC > IPC 
-*** Jogo de Memória em React
-*** Estilos para game-over-modal.component.jsx 
-**********************************************/
-/*--------------------------------------------------
-Estilos para as Janelas Modais
---------------------------------------------------*/
 dialog {
   border-radius: 10px;
   max-width: 350px;

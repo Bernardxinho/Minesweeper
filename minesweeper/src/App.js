@@ -3,16 +3,16 @@ import './App.css';
 import Board from './components/Board/board.component';
 import ControlPanel from './components/ControlPanel/control-panel.component';
 
+var coluna, fila, mina;
+
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState("0");
   const [col, setCol] = useState(0);
   const [fil, setFil] = useState(0);
   const [min, setMin] = useState(0);
-  const [flagCount, setFlagCount] = useState(0); // New state for flag count
+  const [flagCount, setFlagCount] = useState(0); 
   const [points, setPoints] = useState(0)
-
-  var coluna, fila, mina;
 
   if (selectedLevel === "1") {
     coluna = 9;
@@ -25,7 +25,7 @@ function App() {
   } else if (selectedLevel === "3") {
     coluna = 16;
     fila = 30;
-    mina = 10;
+    mina = 99;
   }
 
   useEffect(() => {
@@ -33,7 +33,7 @@ function App() {
       setCol(0)
       setFil(0)
       setMin(0)
-      setFlagCount(0); // Reset flag count when game starts
+      setFlagCount(0); 
     } else {
       setCol(coluna)
       setFil(fila)
@@ -72,7 +72,7 @@ function App() {
         gameStarted={gameStarted}
         flagCount={flagCount}
         points={points}
-        setFlagCount={setFlagCount} // Pass the state and updater function as props
+        setFlagCount={setFlagCount} 
       />
     </div>
   );

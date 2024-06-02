@@ -15,7 +15,6 @@ function ControlPanel(props) {
 
   const handleGameButtonClick = () => {
     if (gameStarted) {
-      setIsGameOver(true);
       setGameStarted(false);
     } else {
       setGameStarted(true);
@@ -30,14 +29,14 @@ function ControlPanel(props) {
 
   const simulatePointsAccumulation = () => {
     if (gameStarted) {
-      setPoints(prevPoints => prevPoints + 1); // Simulating points accumulation
+      setPoints(prevPoints => prevPoints + 1); 
     }
   };
 
   useEffect(() => {
     let intervalId;
     if (gameStarted) {
-      intervalId = setInterval(simulatePointsAccumulation, 1000); // Simulating points accumulation every second
+      intervalId = setInterval(simulatePointsAccumulation, 1000);
     }
     return () => clearInterval(intervalId);
   }, [gameStarted]);

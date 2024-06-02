@@ -9,7 +9,8 @@ const DIRECTIONS = [
   [1, -1] ,[1, 0] ,[1, 1],
 ];
 
-const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setFlagCount, points}) => {
+function Board(props) {
+  const { rows, cols, mines, setGameStarted, gameStarted, flagCount, setFlagCount, points} = props;
   const [grid, setGrid] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [bombPositions, setBombPositions] = useState([]);
@@ -17,8 +18,6 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
   const [flaggedCells, setFlaggedCells] = useState([]);
   const [check, setCheck] = useState(1);
   const [total, setTotal] = useState(0);
-
-
 
   useEffect(() => {
     const newGrid = [];
@@ -100,24 +99,19 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
         (pos) => pos.row !== row || pos.col !== col
       );
       if (check === 1) {
-        setFlagCount((prevCount) => prevCount - 1); // Decrement flag count
-        console.log(check);
+        setFlagCount((prevCount) => prevCount - 1);
         cell.isFlagged = true;
-        setCheck(2); // Update check state
+        setCheck(2); 
       } else if (check === 2) {
-        
         setCheck(1);
         cell.isFlagged = false;
-        console.log(check);
       }
     } else {
       if (flaggedCells.length < mines) {
         cell.isFlagged = true;
         newFlaggedCells.push({ row, col });
-
-        setFlagCount((prevCount) => prevCount + 1); // Increment flag count
-        console.log(check);
-        setCheck(1); // Update check state
+        setFlagCount((prevCount) => prevCount + 1); 
+        setCheck(1); 
       } else {
         cell.isFlagged = true;
         newFlaggedCells.push({ row, col });
@@ -144,8 +138,7 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
     }
 
     const revealGrid = (r, c, updatedGrid) => {
-      if (r < 0 || r >= rows || c < 0 || c >= cols ||
-        updatedGrid[r][c].isOpen
+      if (r < 0 || r >= rows || c < 0 || c >= cols || updatedGrid[r][c].isOpen
       ) {
         setFlagCount(0)
         return;
@@ -183,7 +176,7 @@ const Board = ({ rows, cols, mines, setGameStarted, gameStarted, flagCount, setF
       let tudo = points - flagCount
       setTotal(tudo)
     }
-  }, [gameOver, grid]);
+  }, [gameOver]);
 
   const handleModalClose = () => {
     setGameOver(false);

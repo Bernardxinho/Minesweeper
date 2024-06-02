@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
-function Timer({ timeout, onTimer }) {
+function Timer(props) {
+  const { timeout, onTimer } = props;
   const [seconds, setSeconds] = useState(timeout);
   const [idInterval, setIdInterval] = useState(null);
 

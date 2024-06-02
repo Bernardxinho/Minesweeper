@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './cell.css';
 
-const Cell = ({ cell, revealCell, handleGameOver, gameOver, handleFlagToggle}) => {
+function Cell(props) {
+  const {cell, revealCell, handleGameOver, gameOver, handleFlagToggle} = props;
   const [clicked, setClicked] = useState(false);
   const [cellStatus, setCellStatus] = useState(0);
 
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
   //Left Click
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
     event.preventDefault();
 
     if (gameOver || clicked) return;
@@ -14,7 +17,7 @@ const Cell = ({ cell, revealCell, handleGameOver, gameOver, handleFlagToggle}) =
 
     if (cell.isBomb) {
       revealCell(cell.row, cell.col);
-      
+      await sleep(500);
       handleGameOver();
     } else {
       revealCell(cell.row, cell.col);
