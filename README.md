@@ -1,16 +1,16 @@
 # TrabalhoLS - Minesweeper
 
-Este é o trabalho da disciplina de Linguagens Script, implementando o clássico jogo "Minesweeper" em React.
+This is the implementation of the classic game "Minesweeper" in React.
 
-## Como Iniciar
+##How to Start
 
-Para iniciar o jogo, siga os passos abaixo:
+To start the game, follow the steps below:
 
-1. Certifique-se de ter o Node.js e o npm instalados no seu computador.
+1. Make sure you have Node.js and npm installed on your computer.
 
-2. Abra o terminal e vá para a pasta "minesweeper".
+2. Open the terminal and navigate to the "minesweeper" folder.
 
-3. Execute o seguinte comando para instalar as dependências necessárias: npm install
+3. Run the following command to install the necessary dependencies: npm install
 
-4. Após a instalação das dependências, inicie o servidor de desenvolvimento com o comando: npm start
+4. After installing the dependencies, start the development server with the command: npm start
 
